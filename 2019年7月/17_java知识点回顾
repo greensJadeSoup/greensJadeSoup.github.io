@@ -1,25 +1,27 @@
 # javase
-**javase部分的就不多说了，springMVC部分开始再说详细点吧**
-## 简单数据类型
-简单类型 | 大小 |  范围/精度
--|-|-
- float|4字节|754单精度 
- double |8字节|754双精度 
- byte |1字节 |-128到127 
- short|2字节 |-32,768到32,767 
- int |4字节 |-2,147,483,648到2,147,483,647 
- long |8字节| -9,223,372,036,854,775,808到9,223,372,036, 854,775,807 
- char |2字节| 整个Unicode字符集 
- boolean|1字节| True或者false 
- ### 索引
- 索引类型可以“引用”变量，分成三种，它们是：类（class）、接口（interface）和数组（array）
- #### 类
- 定义方法和数据的数据类型
-#### 数组
-Java数组（array）是动态创建的索引对象,数组对象由元素组成,长度不变，数目可以为0。
-### 封装
-将对象信息，内部逻辑结构隐藏起来。封装就是将属性私有化，提供公有的方法访问私有属性。 
-数据类型 |  包装类
 
+class man implements human{    
+    public void run(){       
+      System.out.println("man");    
+    }
+}
+class woman implements human{    
+    public void run(){        
+      System.out.println("human");    
+    }
+}
+```
+### final
+用final去修饰一个类的时候，表示这个类不能被继承,如果父类中有final修饰的方法，那么子类不能去重写。
+修饰成员变量时必须要赋初始值，而且是只能初始化一次。
+### 四种权限
+权限|作用域
+-|-
+ public|全部可访问
+ protected|非子类的外包不可访问
+ default|只有本包可用
+ private|只有本类可用
+ ### 匿名内部类
+假如一个局部内部类只被用一次（只用它构建一个对象），就可以不用对其命名了，这种没有名字的类被称为匿名内部类（anonymous inner class）
  
  
