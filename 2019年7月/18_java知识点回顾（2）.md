@@ -146,3 +146,56 @@ html+css+js框架
 配置文件，现在基本用注解了
 ### tomcat 
 类似于IIS、Apache的Web服务端程序，Apache只支持静态网页html，tomcat支持jsp动态网页。 
+### https 
+https是在http协议基础上加入加密处理和认证机制以及完整性保护，即http+加密+认证+完整性保护=httpshttps并非应用层的一种新协议，只是http通信接口部分用ssl/tls协议代替而已。通常http直接和tcp通信，当使用ssl时则演变成先和ssl通信，再由ssl和tcp通信。所谓https，其实就是身披ssl协议这层外壳的http
+### request
+通过Request对象可以在服务器端获取客户端发送的请求数据内容
+### response
+通过Response对象可以生成服务器端向客户端响应的数据内容。
+### cookie,session
+session和cookie的作用有点类似，都是为了存储用户相关的信息。不同的是，cookie是存储在本地浏览器，而session存储在服务器
+#### 生命周期
+(1)cookie的生命周期是累计的，从创建时，就开始计时，20分钟后，cookie生命周期结束，(2)session的生命周期是间隔的，从创建时，开始计时如在20分钟，没有访问session，那么session生命周期被销毁但是，如果在20分钟内（如在第19分钟时）访问过session，那么，将重新计算session的生命周期
+(3)关机会造成session生命周期的结束，但是对cookie没有影响
+### jsp
+一个简化的Servlet设计，用来创建动态网页
+### el，stl
+简化jsp编写
+### servlet
+Servlet 通常用来servlet主要负责处理请求并且应答浏览器发出的请求. 有 HttpServlet 作为实现类，根据需要覆盖 doGet 或 doPost.
+### filter
+过滤器，做一些拦截的任务,在Servlet接受请求之前，做一些事情，如果不满足限定，可以拒绝进入Servlet（细节到类）
++ 在创建Filter对象的时候，调用 init 方法
++ 当请求过来之后，调用 doFilter，也就是主要的业务逻辑所在了
+   chain.doFilter(request, response)放行
++ 销毁Filter对象的时候，调用 destroy 方法
+### listener
+监听器用于监听web应用中某些对象、信息的创建、销毁、增加，修改，删除等动作的发生，然后作出相应的响应处理,监听器可以监听Application、Session、Request对象，当这些对象发生变化就会调用对应的监听方法。
+> 统计网站的在线人数(session数量)
+### jq
+jQuery 是一个 JavaScript 库
+### MVC
++ M：Model，模型。(JavaBean)
+			* 完成具体的业务操作，如：查询数据库，封装对象
++ V：View，视图。(JSP)
+			* 展示数据
++ C：Controller，控制器。(Servlet)
+			* 获取用户的输入
+			* 调用模型
+			* 将数据交给视图进行展示
+### AJAX
+AJAX 是与服务器交换数据的艺术，它在不重载全部页面的情况下，实现了对部分网页的更新。（一般为异步交互模型）
+### json
+是存储和交换文本信息的语法，类似 XML，但更小、更快，更易解析。
+### redis
+数据结构服务器，为数据库分压，是一种NoSQL。
++ 存储 缓存 用的数据
++ 需要高速读/写的场合使用它快速读/写
+第一次使用时发现redis中没有该数据，就从数据库中取出来放到redis再使用；第二次使用就直接从redis中取出。
+### maven
+
++ 管理jar包，第三方jar引用（自己写的模块也可作为jar）
++ 减少项目空间
++ 项目分开后更好地配合
++ 简化构建过程
+
