@@ -175,6 +175,7 @@ Servlet 通常用来servlet主要负责处理请求并且应答浏览器发出�
 ### jq
 jQuery 是一个 JavaScript 库
 ### MVC
+## javaee
 + M：Model，模型。(JavaBean)
 			* 完成具体的业务操作，如：查询数据库，封装对象
 + V：View，视图。(JSP)
