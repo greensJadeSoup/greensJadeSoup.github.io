@@ -1,10 +1,10 @@
-### ES6
+## ES6
 js的一个标准
-#### 声明
+### 声明
 let 声明的变量只在 let 命令所在的代码块内有效。
 const 声明一个只读的常量，一旦声明，常量的值就不能改变。
- >上面两个用来代替varhttps://github.com/greensJadeSoup/greensJadeSoup.github.io
- #### 结构表达式
+ >上面两个用来代替var
+ ### 结构表达式
  以下一些要放在script里，函数则在网页调用
 ```js
  let arr = {1,2,3,4,5}
@@ -48,10 +48,7 @@ arr2 = {1,2,3,4,5}
 let arr3 = arr2.reduce((a,b) => a+b)
 arr3 = 15
 ```
-### Vue
-一个渐进式框架，一款MVVM模型的框架
-推荐npm引入
-### node.js及npm安装
+## node.js及npm安装
 两者绑定，安装其一之另一方也有了
 在node官网下载，一路确定
 node -v,npm -v检查安装版本
