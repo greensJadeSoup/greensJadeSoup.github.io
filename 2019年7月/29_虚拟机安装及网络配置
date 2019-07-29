@@ -1,0 +1,34 @@
+## centos7安装
++ 装机看大佬的https://blog.csdn.net/u013168176/article/details/81144193
+## 网络配置
+遇事不决关防火墙，记住是完全关
+### vmWare配置
++ 看百度改即可，注意编辑->虚拟网络编辑器，DHCP设置地址不用管
+### 主机配置
++ 知道ip，DNS即可
++ 控制面板\网络和 Internet\网络连接\VMware Network Adapter VMnet1之类的不用管
+### 虚拟机配置（华广）
+#### /etc/sysconfig/network-scripts/ifcfg-ens33
+TYPE=Ethernet
+PROXY_METHOD=none
+BROWSER_ONLY=no
+BOOTPROTO=static
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+IPV6INIT=yes
+IPV6_AUTOCONF=yes
+IPV6_DEFROUTE=yes
+IPV6_FAILURE_FATAL=no
+IPV6_ADDR_GEN_MODE=stable-privacy
+NAME=ens33
+UUID=92597f93-197d-4145-b52e-9b95d7d79080
+DEVICE=ens33
+ONBOOT=yes
+IPADDR=192.168.1.128
+NETMASK=255.255.255.0
+GATEWAY=192.168.1.1
+DNS1=114.114.114.114
+DNS2=8.8.8.8
+DNS3=10.1.1.3
+ZONE=public
+~               
