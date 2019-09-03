@@ -1,0 +1,263 @@
+# FastDFS下nginx安装
+## nginx开机启动
++ vim /etc/init.d/nginx，添加一下内容
+```nginx
+#!/bin/sh
+  #
+  # nginx - this script starts and stops the nginx daemon
+  #
+  # chkconfig:   - 85 15
+  # description:  NGINX is an HTTP(S) server, HTTP(S) reverse \
+  #               proxy and IMAP/POP3 proxy server
+  # processname: nginx
+  # config:      /etc/nginx/nginx.conf
+  # config:      /etc/sysconfig/nginx
+  # pidfile:     /var/run/nginx.pid
+
+  # Source function library.
+  . /etc/rc.d/init.d/functions
+
+  # Source networking configuration.
+  . /etc/sysconfig/network
+
+  # Check that networking is up.
+  [ "$NETWORKING" = "no" ] && exit 0
+
+  nginx="/usr/bin/nginx"
+  prog=$(basename $nginx)
+
+  NGINX_CONF_FILE="/opt/nginx/conf/nginx.conf"
+
+  [ -f /etc/sysconfig/nginx ] && . /etc/sysconfig/nginx
+
+  lockfile=/var/lock/subsys/nginx
+
+  make_dirs() {
+     # make required directories
+     user=`$nginx -V 2>&1 | grep "configure arguments:.*--user=" | sed 's/[^*]*--user=\([^ ]*\).*/\1/g' -`
+     if [ -n "$user" ]; then
+        if [ -z "`grep $user /etc/passwd`" ]; then
+           useradd -M -s /bin/nologin $user
+        fi
+        options=`$nginx -V 2>&1 | grep 'configure arguments:'`
+        for opt in $options; do
+            if [ `echo $opt | grep '.*-temp-path'` ]; then
+                value=`echo $opt | cut -d "=" -f 2`
+                if [ ! -d "$value" ]; then
+                    # echo "creating" $value
+                    mkdir -p $value && chown -R $user $value
+                fi
+            fi
+         done
+      fi
+  }
+
+  start() {
+      [ -x $nginx ] || exit 5
+      [ -f $NGINX_CONF_FILE ] || exit 6
+      make_dirs
+      echo -n $"Starting $prog: "
+      daemon $nginx -c $NGINX_CONF_FILE
+      retval=$?
+      echo
+      [ $retval -eq 0 ] && touch $lockfile
+      return $retval
+  }
+
+  stop() {
+      echo -n $"Stopping $prog: "
+      killproc $prog -QUIT
+      retval=$?
+      echo
+      [ $retval -eq 0 ] && rm -f $lockfile
+      return $retval
+  }
+
+  restart() {
+      configtest || return $?
+      stop
+      sleep 1
+      start
+  }
+
+  reload() {
+      configtest || return $?
+      echo -n $"Reloading $prog: "
+      killproc $nginx -HUP
+      RETVAL=$?
+      echo
+  }
+
+  force_reload() {
+      restart
+  }
+
+  configtest() {
+    $nginx -t -c $NGINX_CONF_FILE
+  }
+
+  rh_status() {
+      status $prog
+  }
+
+  rh_status_q() {
+      rh_status >/dev/null 2>&1
+  }
+
+  case "$1" in
+      start)
+          rh_status_q && exit 0
+          $1
+          ;;
+      stop)
+          rh_status_q || exit 0
+          $1
+          ;;
+      restart|configtest)
+          $1
+          ;;
+      reload)
+          rh_status_q || exit 7
+          $1
+          ;;
+      force-reload)
+          force_reload
+          ;;
+      status)
+          rh_status
+          ;;
+      condrestart|try-restart)
+          rh_status_q || exit 0
+              ;;
+      *)
+          echo $"Usage: $0 {start|stop|status|restart|condrestart|try-restart|reload|force-reload|configtest}"
+          exit 2
+  esac
+```
++ 修改权限 chmod 777 /etc/init.d/nginx   
++ 添加到服务列表 chkconfig --add /etc/init.d/nginx 
++ 设置开机启动 chkconfig nginx on
+# java代码调用FastDFS
++ 安装FastDFS_Client,网址为https://github.com/tobato/FastDFS_Client
++ upload模块中pom.xml引入
+```xml
+<dependency>    
+    <groupId>com.github.tobato</groupId>    
+    <artifactId>fastdfs-client</artifactId>
+</dependency>
+```
+父工程管理版本
+```xml
+<!--FastDFS客户端-->
+<dependency>
+    <groupId>com.github.tobato</groupId>
+    <artifactId>fastdfs-client</artifactId>
+    <version>${fastDFS.client.version}</version>
+</dependency>
+```
++ 引入配置类
+upload中创建一个config包，里面FastClientImporter.java
+```java
+@Configuration
+@Import(FdfsClientConfig.class)
+// 解决jmx重复注册bean的问题
+@EnableMBeanExport(registration = RegistrationPolicy.IGNORE_EXISTING)
+public class FastClientImporter {
+}
+```
++ 在upload的appliocation.yml中添加
+```yml
+fdfs:
+  so-timeout: 1501
+  connect-timeout: 601
+  thumb-image: # 缩略图
+    width: 60
+    height: 60
+  tracker-list: # tracker地址
+    - 192.168.1.128:22122
+```
+> 缩略图：非原图，减少流量
++ 测试代码
+```java
+@RunWith(SpringRunner.class)
+public class FdfsTest {
+
+    @Autowired
+    private FastFileStorageClient storageClient;
+
+    @Autowired
+    private ThumbImageConfig thumbImageConfig;
+
+    //传统
+    @Test
+    public void testUpload() throws FileNotFoundException {
+        File file = new File("/tmp/2.jpeg");
+        // 上传文件
+        StorePath storePath = this.storageClient.uploadFile(
+                new FileInputStream(file), file.length(), "png", null);
+        // 带分组的路径
+        System.out.println(storePath.getFullPath());
+        // 不带分组的路径
+        System.out.println(storePath.getPath());
+    }
+
+    //缩略图
+    @Test
+    public void testUploadAndCreateThumb() throws FileNotFoundException {
+        File file = new File("D:\\test\\baby.png");
+        // 上传并且生成缩略图
+        StorePath storePath = this.storageClient.uploadImageAndCrtThumbImage(
+                new FileInputStream(file), file.length(), "png", null);
+        // 带分组的路径
+        System.out.println(storePath.getFullPath());
+        // 不带分组的路径
+        System.out.println(storePath.getPath());
+        // 获取缩略图路径
+        String path = thumbImageConfig.getThumbImagePath(storePath.getPath());
+        System.out.println(path);
+    }
+}
+```
++ 编写upload下的UploadService文件
+```java
+@Service
+public class UploadService {
+
+    private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
+
+    // 支持的文件类型
+    private static final List<String> suffixes = Arrays.asList("image/png", "image/jpeg");
+
+    @Autowired
+    FastFileStorageClient storageClient;
+
+    public String upload(MultipartFile file) {
+        try {
+            // 1、图片信息校验
+            // 1)校验文件类型
+            String type = file.getContentType();
+            if (!suffixes.contains(type)) {
+                logger.info("上传失败，文件类型不匹配：{}", type);
+                return null;
+            }
+            // 2)校验图片内容
+            BufferedImage image = ImageIO.read(file.getInputStream());
+            if (image == null) {
+                logger.info("上传失败，文件内容不符合要求");
+                return null;
+            }
+
+            // 2、将图片上传到FastDFS
+            // 2.1、获取文件后缀名
+            String extension = StringUtils.substringAfterLast(file.getOriginalFilename(), ".");
+            // 2.2、上传
+            StorePath storePath = this.storageClient.uploadFile(
+                    file.getInputStream(), file.getSize(), extension, null);
+            // 2.3、返回完整路径
+            return "http://image.leyou.com/" + storePath.getFullPath();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+}
+```
