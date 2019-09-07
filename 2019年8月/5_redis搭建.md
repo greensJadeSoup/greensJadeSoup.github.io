@@ -1,6 +1,6 @@
 ## redis在centos7搭建
 https://blog.csdn.net/zhaoxiang10052111/article/details/80253604
-+ redis安装包路径home/yanzhao/redis-4.0.9
++ redis安装包路径home/yanzhao/redis-4.0.9(炼章师兄在/root/redis-4.0.9)
 redis.conf路径：/root/usr/local/redis
 + 启动redis服务器: ./redis-server redis.conf
 在后台运行./redis-server redis.conf & 
