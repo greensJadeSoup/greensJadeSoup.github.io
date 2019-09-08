@@ -94,7 +94,7 @@ smembers myset          查看set中的内容
 scard myset             获取Set 集合中元素的数量
 srandmember myset       随机的返回某一成员
 sdiff myset1 myset2 myset3      1和2得到一个结果,拿这个集合和3比较,获得每个独有的值
-sdiffstore diffkey myset myset2 myset3      3个集和比较,获取独有的元素,并存入diffkey 关联的Set中
+sdiffstore diffkey myset myset2 myset3      3个集和比较,获取独有的元素,并存入diffkey 关联的Set中  
 sinter myset myset2 myset3              获得3个集合中都有的元素
 sinterstore interkey myset myset2 myset3  把交集存入interkey 关联的Set中
 sunion myset myset2 myset3              获取3个集合中的成员的并集
