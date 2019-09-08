@@ -66,42 +66,27 @@ auto-aof-rewrite-min-size 64mb
 aof文件大小比起上次重写时的大小,增长率100%时重写,缺点:业务开始的时候，会重复重写多次。
 aof文件,至少超过64M时,重写
 ```
-## redis全局keys举例
-+ 删 
-flushdb             清空当前选择的数据库 
-del mykey mykey2        删除了两个 Keys 
-+ 改 
-move mysetkey 1         将当前数据库中的 mysetkey 键移入到 ID 为 1 的数据库中 
-rename mykey mykey1     将 mykey 改名为 mykey1 
-renamenx oldkey newkey  如果 newkey 已经存在，则无效 
-expire mykey 100        将该键的超时设置为 100 秒
-persist mykey       将该 Key 的超时去掉,变成持久化的键 
-+ 查 
-keys my*            获取当前数据库中所有以my开头的key 
-exists mykey        若不存在,返回0;存在返回1 
-select 0            打开 ID 为 0 的数据库 
-ttl mykey           查看存货时间还剩下多少秒
-type mykey          返回mykey对应的值的类型 
-randomkey           返回数据库中的任意键
-## redis字符串操作举例
-+ 增
-set mykey "test"            为键设置新值，并覆盖原有值
-getset mycounter 0              设置值,取值同时进行
-setex mykey 10 "hello"          设置指定 Key 的过期时间为10秒,在存活时间可以获取value
-setnx mykey "hello"             若该键不存在，则为键设置新值
-mset key3  "zyx"  key4 "xyz"    批量设置键
-+ 删
-del mykey                   删除已有键
-+ 改
-append mykey "hello"            若该键并不存在,返回当前 Value 的长度
-                            该键已经存在，返回追加后 Value的长度
-incr mykey                  值增加1,若该key不存在,创建key,初始值设为0,增加后结果为1
-decrby  mykey  5            值减少5
-setrange mykey 20 dd            把第21和22个字节,替换为dd, 超过value长度,自动补0
-+ 查  
-exists mykey                    判断该键是否存在，存在返回 1，否则返回0
-get mykey                   获取Key对应的value
-strlen mykey                获取指定 Key 的字符长度
-ttl mykey                   查看一下指定 Key 的剩余存活时间(秒数)
-getrange mykey 1 20             获取第2到第20个字节,若20超过value长度,则截取第2个和后面所有的
-mget key3 key4                  批量获取键
+## 消息模式
+Redis发布消息通常有两种模式：
+1.队列模式（queuing）
+任务队列：顾名思义，就是“传递消息的队列”。与任务队列进行交互的实体有两类，一类是生产者（producer），另一类则是消费者（consumer）。  
+生产者将需要处理的任务放入任务队列中，而消费者则不断地从任务独立中读入任务信息并执行。
+任务队列的好处：
+• 松耦合。
+生产者和消费者只需按照约定的任务描述格式，进行编写代码。
+• 易于扩展。
+多消费者模式下，消费者可以分布在多个不同的服务器中，由此降低单台服务器的负载。
+2.发布-订阅模式(publish-subscribe)
+一个发布者发布消息，多个订阅者进行消息的订阅，目的是为了消息的传送
+##  redis中事物锁机制
++ 悲观锁
+概念：12306买票，我选择了票，不管有没有付钱这张票都是我的，我把它锁上，别人就看不到了
++ 乐观锁
+概念：类似于商品秒杀，你选择之后，别人还是能看到，被人还是能付钱，谁先付钱是谁的
+## redis的主从复制
+• 使用异步复制。
+• 一个主服务器可以有多个从服务器。
+• 从服务器也可以有自己的从服务器。
+• 复制功能不会阻塞主服务器。
+• 可以通过复制功能来让主服务器免于执行持久化操作，由从服务器去执行持久化操作即可。
+> 无论何时，数据安全都是极其重要的，所以应该禁止主服务器关闭持久化的同时自动拉起。
