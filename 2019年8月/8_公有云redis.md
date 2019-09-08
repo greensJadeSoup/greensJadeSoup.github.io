@@ -66,7 +66,6 @@ auto-aof-rewrite-min-size 64mb
 aof文件大小比起上次重写时的大小,增长率100%时重写,缺点:业务开始的时候，会重复重写多次。
 aof文件,至少超过64M时,重写
 ```
-
 ## redis全局keys举例
 + 删 
 flushdb             清空当前选择的数据库 
