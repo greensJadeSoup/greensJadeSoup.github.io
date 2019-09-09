@@ -2,6 +2,8 @@
 环境搭建好，java代码能连上后，开始下一步构思，看看大佬的博客
 https://blog.51cto.com/13447608/2159501
 ## 开放6973端口
+> 为了方便，直接开饭6379给所有ip
++ 开启防火墙 sudo systemctl start firewalld
 + 命令firewall-cmd --zone=public --add-port=80/tcp --permanent
 + 重启firewall-cmd --reload
 + 查看开放端口firewall-cmd --zone=public --list-ports
