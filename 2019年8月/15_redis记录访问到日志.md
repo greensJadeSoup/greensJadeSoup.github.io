@@ -15,7 +15,7 @@ new Thread(new Runnable() {
     }
 }).start();
 ```
-## 代码
+### 代码
 参考一下两个网址
 https://blog.csdn.net/cxfly957/article/details/79085785
 https://blog.csdn.net/douxingpeng1/article/details/83050716
@@ -81,3 +81,10 @@ public class Analysis {
 }
 
 ```
+## log4j按日期和文件大小切割日志
+网址https://blog.csdn.net/zhangyunfeixyz/article/details/79039273
+再结合以上monitor监听和动态生成日志文件夹
+## 注意点
+文件夹不能带":",所以按端口创建文件夹一直失败。。。
+>xxxx:8080不能作为文件夹名
+## 
