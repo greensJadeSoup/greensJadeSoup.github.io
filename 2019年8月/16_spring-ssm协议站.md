@@ -20,3 +20,49 @@ https://blog.csdn.net/qq_37130969/article/details/82628091
 mysql出现The server time zone value '�й���׼ʱ��' is unrecogni的解决方法 /mysql-jdbc 6.0 serverTimezone参数详解  
 查看以下
 https://blog.csdn.net/weixin_43400357/article/details/97916822
+## @SpringApplicationConfiguration过期
+用@SpringBootTest
+## springboot使用log4j
+由于org.springframework.boot中自带slf4j，所以在pom文件中要用Log4j替代
+```pom
+
+    <dependencies>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>2.1.0</version>
+        </dependency>
+
+        <!--log4j代替logback-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>org.springframework.boot</artifactId>
+                    <groupId>spring-boot-starter-logging</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+        <!--log4j使用-->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+```
+## log4j不生成文件
+有可能是被slf4j替代，配置不生效，也可能是路径错误，要用绝对路径
