@@ -89,5 +89,6 @@ Log应引用org.apache.commons.logging
 文件夹不能带":",所以按端口创建文件夹一直失败。。。
 >xxxx:8080不能作为文件夹名
 ## 注意事项
-+ log4j.appender.R=应改为项目中RoolingAndDateFileAppender路径
++ log4j.appender.R=应改为项目中RoolingAndDateFileAppender路径，全路径哦
 + log4j.appender.R.file=应改为绝对路径
++ springboot项目中要去除logback
