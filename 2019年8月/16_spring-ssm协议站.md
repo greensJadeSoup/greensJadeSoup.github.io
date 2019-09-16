@@ -16,3 +16,7 @@ https://blog.csdn.net/qq_37130969/article/details/82628091
     <artifactId>spring-boot-starter-web</artifactId>
 </dependency>
 ```
+## MYSQL时区错误
+mysql出现The server time zone value '�й���׼ʱ��' is unrecogni的解决方法 /mysql-jdbc 6.0 serverTimezone参数详解  
+查看以下
+https://blog.csdn.net/weixin_43400357/article/details/97916822
