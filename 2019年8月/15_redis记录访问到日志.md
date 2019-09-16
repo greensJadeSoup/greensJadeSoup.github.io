@@ -83,6 +83,7 @@ public class Analysis {
 ```
 ## log4j按日期和文件大小切割日志
 网址https://blog.csdn.net/zhangyunfeixyz/article/details/79039273
+Log应引用org.apache.commons.logging
 再结合以上monitor监听和动态生成日志文件夹
 ## 注意点
 文件夹不能带":",所以按端口创建文件夹一直失败。。。
