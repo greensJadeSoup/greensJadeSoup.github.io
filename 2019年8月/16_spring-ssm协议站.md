@@ -66,3 +66,4 @@ https://blog.csdn.net/weixin_43400357/article/details/97916822
 ```
 ## log4j不生成文件
 有可能是被slf4j替代，配置不生效，也可能是路径错误，要用绝对路径
+> 参考https://blog.csdn.net/zhiyikeji/article/details/85955010
