@@ -85,6 +85,11 @@ public class Analysis {
 网址https://blog.csdn.net/zhangyunfeixyz/article/details/79039273
 Log应引用org.apache.commons.logging
 再结合以上monitor监听和动态生成日志文件夹
+## log4j动态路径
+在代码中，使用类似System.setProperty ("logs.path",filePath);
+在properties，使用${logs.path}
+## 用${}不起作用 
+使用时log4j已经加载，而System.setProperty ("logs.path",filePath);还未生效
 ## 注意点
 文件夹不能带":",所以按端口创建文件夹一直失败。。。
 >xxxx:8080不能作为文件夹名
