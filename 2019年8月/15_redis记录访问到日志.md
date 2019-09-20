@@ -15,6 +15,10 @@ new Thread(new Runnable() {
     }
 }).start();
 ```
+### 截取字符串指定字符中间
+```java
+String analysis = command.substring(command.indexOf("[")+3,command.indexOf("]"));
+```
 ### 代码
 参考一下两个网址
 https://blog.csdn.net/cxfly957/article/details/79085785
