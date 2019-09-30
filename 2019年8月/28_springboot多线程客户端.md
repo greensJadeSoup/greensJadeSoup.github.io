@@ -18,3 +18,5 @@ https://blog.csdn.net/qq_39402590/article/details/90473261
 https://www.cnblogs.com/singleprogramdog/p/11095619.html
 https://blog.csdn.net/qq_39335514/article/details/79045496
 这几个接不到数据，应该是没有传参本地port
+## 遇到问题
++ 服务器被写好，只能返回数据到他接受到数据的原ip与端口，而客户端发送与接收在同一个端口会冲突
