@@ -73,3 +73,4 @@ User newUser = (User) redisTemplate.opsForValue().get(userKey);
 System.out.println("key:" + userKey + " ,value：" + newUser);
 
 ```
++ 参考https://www.cnblogs.com/uptothesky/p/8215117.html
