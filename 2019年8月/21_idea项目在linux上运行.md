@@ -9,3 +9,8 @@ https://blog.csdn.net/m0_37063257/article/details/78300877
 参考网址https://blog.csdn.net/tang9140/article/details/38899345
 ## 位置
 jar包在炼章师兄公有云的/home/yanZhao/tcp_multithreading_jar/中，日志在/logs
+## springsecurity跨域问题
+网页中出现No 'Access-Control-Allow-Origin'  
+项目中已经完成，却因为跨域导致出错  
+老版方法，已被代替：https://blog.csdn.net/qq_19419233/article/details/99645813
+新版，亲测可用：https://blog.csdn.net/tiangongkaiwu152368/article/details/81099169
