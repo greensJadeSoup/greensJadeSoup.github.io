@@ -1,7 +1,7 @@
 ## springboot打包
 https://blog.csdn.net/m0_37063257/article/details/78300877
 ## 注意点
-参考网址步骤中，生成的jar包没有MANIFEST.MF文件，将你项目中src\main\java\META-INF下的MANIFEST.MF放到jar包中，再运行
+参考网址步骤中，生成的jar包没有MANIFEST.MF文件，将你项目中src\main\java\META-INF下的MANIFEST.MF放到xxx.jar新建的META-INF文件夹中，再运行
 ## 运行方法
 + 前台运行java -jar XXX.jar
 + 后台运行java -jar XXX.jar &
