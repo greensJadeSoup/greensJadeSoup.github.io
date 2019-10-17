@@ -10,3 +10,7 @@ https://www.cnblogs.com/sweetchildomine/p/5998659.html
 ## 不知道有没有记录
 spring boot + mybatis + druid + redis
 参考网址，细节修改见项目：https://www.cnblogs.com/uptothesky/p/8215117.html
+## security-test-master
+权限分配正常，但是跳转不行，应该是没有拦截/login
+## boot-security
+后端管理系统，可用
