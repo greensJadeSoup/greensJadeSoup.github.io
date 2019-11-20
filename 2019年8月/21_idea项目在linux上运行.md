@@ -7,6 +7,9 @@ https://blog.csdn.net/m0_37063257/article/details/78300877
 + 后台运行java -jar XXX.jar &
 + 一直运行nohup java -jar XXX.jar &
 参考网址https://blog.csdn.net/tang9140/article/details/38899345
+## 暂停方法
+netstat -lnp|grep 8080   #8080为你那jar包运行的端口
+ kill -9 9932        #杀掉编号为9932的进程（请根据实际情况输入）
 ## 位置
 jar包在炼章师兄公有云的/home/yanZhao/tcp_multithreading_jar/中，日志在/logs
 ## springsecurity跨域问题
