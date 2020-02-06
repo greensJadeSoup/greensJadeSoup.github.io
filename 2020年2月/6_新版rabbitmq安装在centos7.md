@@ -41,8 +41,8 @@ systemctl restart firewalld.service
 > 关闭service firewalld stop
 + 通过命令开启web管理插件：rabbitmq-plugins enable rabbitmq_management,
 停止：abbitmqctl stop，再开：rabbitmq-server -detached
-（删除）重启：service rabbitmq-server restart
-（删除）+ 如果失败，出现：ERROR: node with name "rabbit" already running on，可以通过：ps -ef|grep rabbitmq，找出后台文件再kill
+> （删除）重启：service rabbitmq-server restart
+> （删除）+ 如果失败，出现：ERROR: node with name "rabbit" already running on，可以通过：ps -ef|grep rabbitmq，找出后台文件再kill
 + 输入服务器IP:15672 就可以看到RabbitMQ的WEB管理页面
 > 阿里云记得设置安全组，开放端口
 + 配置访问账号密码和权限
