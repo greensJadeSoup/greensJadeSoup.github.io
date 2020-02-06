@@ -45,6 +45,9 @@ systemctl restart firewalld.service
 > （删除）+ 如果失败，出现：ERROR: node with name "rabbit" already running on，可以通过：ps -ef|grep rabbitmq，找出后台文件再kill
 + 输入服务器IP:15672 就可以看到RabbitMQ的WEB管理页面
 > 阿里云记得设置安全组，开放端口
-+ 配置访问账号密码和权限
+## 配置访问账号密码和权限
++ rabbitmqctl add_user superrd superrd  //添加用户，后面两个参数分别是用户名和密码，我这都用superrd了。
++ rabbitmqctl set_permissions -p / superrd ".*" ".*" ".*"  //添加权限
++ rabbitmqctl set_user_tags superrd administrator  //修改用户角色
 ## 其他安装方法
 https://www.jianshu.com/p/51001ef01f28
