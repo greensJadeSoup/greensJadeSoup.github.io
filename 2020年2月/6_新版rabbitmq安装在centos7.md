@@ -5,8 +5,7 @@
 + 解压tar -zxvf otp_src_22.0.tar.gz
 + 安装构建Erlang语言的工具
 yum install -y make gcc gcc-c++ m4 openssl openssl-devel ncurses-devel unixODBC unixODBC-devel java java-devel
-+ 操作，具体路径根据自己
-./configure --prefix=/home/yanzhao/java_all/erlang/
++ 必要操作，具体路径根据实际： ./configure --prefix=/home/yanzhao/java_all/erlang/
 + 构建
 make && make install
 + 配置环境
@@ -33,8 +32,11 @@ rabbitmq-server -detached
 + 检查是否启动成功
 rabbitmqctl status
 + 配置防火墙：linux 端口 15672 网页管理 5672 AMQP端口：
+
 firewall-cmd --permanent --add-port=15672/tcp
+
 firewall-cmd --permanent --add-port=5672/tcp
+
 systemctl restart firewalld.service
 > 防火墙开启service firewalld start
 > 重启service firewalld restart
